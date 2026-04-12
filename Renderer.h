@@ -422,7 +422,11 @@ struct Renderer
     {
         // Инициализируем glslang один раз
         ShaderTranspiler::init();
-        printf("[Renderer] GL: %s\n", glGetString(GL_VERSION));
+
+        // ВАЖНО: glGetString вызывается ТОЛЬКО после _initGL(),
+        // потому что GLAD (gladLoadGL) должен быть загружен до любого вызова GL.
+        // Раньше этот printf стоял до _initGL() → GLAD не загружен →
+        // glGetString == nullptr → Access Violation по адресу 0x0.
 
 #ifdef _WIN32
         if (gRenderBackend == RenderBackend::DX11) {
@@ -433,6 +437,8 @@ struct Renderer
         }
 #endif
         _initGL();
+        // Теперь GLAD загружен — glGetString безопасен
+        printf("[Renderer] GL: %s\n", glGetString(GL_VERSION));
         printf("[Renderer] Backend: OpenGL\n");
     }
 
