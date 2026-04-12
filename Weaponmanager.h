@@ -12,10 +12,10 @@ struct WeaponDef
 {
     std::string file;
     std::string texDir;
-    float       scale = 0.01f;
-    int         maxAmmo = 12;
-    float       fireRate = 0.15f;
-    float       recoilKick = 0.04f;
+    float scale = 0.01f;
+    int   maxAmmo = 12;
+    float fireRate = 0.15f;
+    float recoilKick = 0.04f;
     std::string animIdle;
     std::string animFire;
     std::string animFire001;
@@ -23,19 +23,25 @@ struct WeaponDef
     std::string animReloadEasy;
     std::string animReloadFull;
     std::string animWalk;
-    float       rotY = 180.f;
-    float       rotX = 0.f;
-    int         slot = 0;
+    float rotY = 180.f;
+    float rotX = 0.f;
+    int   slot = 0;
 
     // Индивидуальная поправка позиции (прибавляется к GUN_OFFSET_* из Settings.h)
-    float       posRight = 0.f;
-    float       posUp = 0.f;
-    float       posFwd = 0.f;
+    float posRight = 0.f;
+    float posUp = 0.f;
+    float posFwd = 0.f;
+
+    // ── Дробовик: пеллеты и разброс ─────────────────────────────
+    // pellets = сколько шаров за выстрел (1 = обычное оружие)
+    // spreadDeg = угол конуса разброса в градусах
+    int   pellets = 1;
+    float spreadDeg = 0.f;
 };
 
 inline std::vector<WeaponDef> weaponDefs = {
 
-    // 0: Glock (слот 0)
+    // ── 0: Glock (слот 0 — пистолеты) ───────────────────────────
     {
         "models/pistol/glock/glock.fbx",
         "models/pistol/glock/textures",
@@ -48,10 +54,11 @@ inline std::vector<WeaponDef> weaponDefs = {
         "Armature|FPS_Pistol_Reload_full",
         "Armature|FPS_Pistol_Walk",
         180.f, 0.f, 0,
-        0.f, 0.f, 0.f
+        0.f, 0.f, 0.f,
+        1, 0.f          // обычный выстрел
     },
 
-    // 1: Sawnoff (слот 0)
+    // ── 1: Sawnoff (слот 0 — пистолеты) ─────────────────────────
     {
         "models/pistol/sawnoff/sawnoff.fbx",
         "models/pistol/sawnoff/textures",
@@ -64,10 +71,11 @@ inline std::vector<WeaponDef> weaponDefs = {
         "WEP_Reload_01.001",
         "WEP_Walk",
         180.f, 0.f, 0,
-        0.f, 0.f, 0.f
+        0.f, 0.f, 0.f,
+        1, 0.f
     },
 
-    // 2: AK-74 (слот 1)
+    // ── 2: AK-74 (слот 1 — автоматы) ────────────────────────────
     {
         "models/pistol/ak74/ak74.fbx",
         "models/pistol/ak74/textures",
@@ -80,14 +88,45 @@ inline std::vector<WeaponDef> weaponDefs = {
         "Rig|AK_Reload_full",
         "Rig|AK_Run",
         180.f, 0.f, 1,
-        0.f, 0.f, 0.f
+        0.f, 0.f, 0.f,
+        1, 0.f
+    },
+
+    // ── 3: Shotgun (слот 2) ──────────────────────────────────────
+    // Анимации взяты из Blender (Action Editor): Rig|M4_*
+    // Файл: models/pistol/source/shootgun.fbx
+    // Текстуры: models/pistol/source/textures
+    //
+    // Что настраивать если оружие не попадает в руки:
+    //   posRight / posUp / posFwd — смещение относительно GUN_OFFSET из Settings.h
+    //   rotY / rotX              — поворот модели (180 = стандарт, все остальные так же)
+    //   scale                    — размер (0.01 = как у остальных)
+    {
+        "models/pistol/source/shootgun.fbx",
+        "models/pistol/source/textures",
+        0.01f,                  // scale — совпадает с Glock и AK
+        6,                      // maxAmmo: 6 патронов
+        0.75f,                  // fireRate: помповый, медленный
+        0.12f,                  // recoilKick: сильная отдача
+        "Rig|M4_Idle",          // animIdle
+        "Rig|M4_Fire",          // animFire
+        "Rig|M4_Fire",          // animFire001
+        "Rig|M4_Fire",          // animFire002
+        "Rig|M4_ReloadOne_type1",   // animReloadEasy (добавить 1-2 патрона)
+        "Rig|M4_ReloadFull_type1",  // animReloadFull (с нуля)
+        "Rig|M4_Walk",          // animWalk
+        180.f, 0.f,             // rotY, rotX — стандарт как у всех
+        2,                      // slot 2 = дробовики (клавиша 3)
+        0.f, 0.f, 0.f,          // posRight, posUp, posFwd — поправки позиции
+        8,                      // pellets: 8 шаров за выстрел
+        4.f                     // spreadDeg: конус 4°
     },
 };
 
 struct GunState;
 extern GunState gun;
 extern float flashTimer;
-extern int   fireAnimCounter;
+extern int fireAnimCounter;
 
 struct WeaponManager
 {
@@ -146,6 +185,15 @@ struct WeaponManager
         }
         switchTo(next);
     }
+
+    // Это дробовик?
+    bool isShotgun() const {
+        return weaponDefs[current].pellets > 1;
+    }
+
+    // Сколько пеллет и какой разброс у текущего оружия
+    int   currentPellets()   const { return weaponDefs[current].pellets; }
+    float currentSpreadDeg() const { return weaponDefs[current].spreadDeg; }
 
     AnimatedModel& active() { return *models[current]; }
     const WeaponDef& activeDef() const { return weaponDefs[current]; }

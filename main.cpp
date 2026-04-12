@@ -303,7 +303,24 @@ int main()
     }
     soundManager.init();
 
-    // -- 10. Стартовая позиция игрока -------------------------
+    // -- 10. Диагностика оружий ─────────────────────────────────
+    // Выводится ПОСЛЕ загрузки всех врагов — всегда видна в консоли
+    printf("-----------------------------------------\n");
+    printf("[WEAPON] === WEAPON LOAD SUMMARY ===\n");
+    for (int i = 0; i < (int)weaponManager.models.size(); i++) {
+        auto& wm = weaponManager.models[i];
+        size_t mc = wm ? wm->meshes.size() : 0;
+        size_t ac = wm ? wm->animIndex.size() : 0;
+        if (mc == 0)
+            printf("[WEAPON] ERROR #%d '%s' = 0 meshes! FBX не найден или пустой.\n",
+                i, weaponDefs[i].file.c_str());
+        else
+            printf("[WEAPON] OK    #%d '%s' = meshes:%zu anims:%zu\n",
+                i, weaponDefs[i].file.c_str(), mc, ac);
+    }
+    printf("-----------------------------------------\n");
+
+    // -- 11. Стартовая позиция игрока -------------------------
     {
         float gy = getGroundY(player.pos, 200.f);
         if (gy != std::numeric_limits<float>::lowest())
