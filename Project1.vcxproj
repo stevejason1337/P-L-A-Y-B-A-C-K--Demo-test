@@ -154,7 +154,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\123321\Project1\dependencies\include;C:\123321\Project1;C:\vcpkg\installed\x64-windows-static\include\bullet;C:\123321\Project1\Engine\Animations;C:\123321\Project1\Engine\Core;C:\123321\Project1\Engine\Physics;C:\123321\Project1\Engine\Render;C:\123321\Project1\Engine\Shaders;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\123321\Project1\dependencies\include;C:\123321\Project1;C:\vcpkg\installed\x64-windows-static\include\bullet;C:\123321\Project1\Engine\Animations;C:\123321\Project1\Engine\Core;C:\123321\Project1\Engine\Physics;C:\123321\Project1\Engine\Render;C:\123321\Project1\Engine\Shaders;C:\123321\Project1\dependencies\Glad;C:\123321\Project1\dependencies\Imgui;C:\123321\Project1\dependencies\Miniaudio;C:\123321\Project1\dependencies\Stb;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
@@ -200,6 +200,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dependencies\Glad\glad.c" />
+    <ClCompile Include="dependencies\Imgui\imgui.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_draw.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_tables.cpp" />
+    <ClCompile Include="dependencies\Imgui\imgui_widgets.cpp" />
     <ClCompile Include="dependencies\include\glm\detail\glm.cpp" />
     <ClCompile Include="dependencies\include\glm\glm.cppm" />
     <ClCompile Include="Editor main.cpp">
@@ -210,14 +218,6 @@
     <ClCompile Include="Engine\Core\Soundmanager.cpp" />
     <ClCompile Include="Engine\Render\Textrenderer.cpp" />
     <ClCompile Include="Engine\Shaders\ShaderTranspiler.cpp" />
-    <ClCompile Include="glad.c" />
-    <ClCompile Include="imgui.cpp" />
-    <ClCompile Include="imgui_draw.cpp" />
-    <ClCompile Include="imgui_impl_dx11.cpp" />
-    <ClCompile Include="imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui_tables.cpp" />
-    <ClCompile Include="imgui_widgets.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Editor|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -225,6 +225,16 @@
   <ItemGroup>
     <ClInclude Include="BloodFX.h" />
     <ClInclude Include="Console.h" />
+    <ClInclude Include="dependencies\Imgui\imconfig.h" />
+    <ClInclude Include="dependencies\Imgui\imgui.h" />
+    <ClInclude Include="dependencies\Imgui\imgui_impl_dx11.h" />
+    <ClInclude Include="dependencies\Imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="dependencies\Imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="dependencies\Imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="dependencies\Imgui\imgui_internal.h" />
+    <ClInclude Include="dependencies\Imgui\imstb_rectpack.h" />
+    <ClInclude Include="dependencies\Imgui\imstb_textedit.h" />
+    <ClInclude Include="dependencies\Imgui\imstb_truetype.h" />
     <ClInclude Include="dependencies\include\glad\glad.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3.h" />
     <ClInclude Include="dependencies\include\GLFW\glfw3native.h" />
@@ -518,6 +528,9 @@
     <ClInclude Include="dependencies\include\glm\vec4.hpp" />
     <ClInclude Include="dependencies\include\glm\vector_relational.hpp" />
     <ClInclude Include="dependencies\include\KHR\khrplatform.h" />
+    <ClInclude Include="dependencies\Miniaudio\miniaudio.h" />
+    <ClInclude Include="dependencies\Stb\stb_image.h" />
+    <ClInclude Include="dependencies\Stb\stb_truetype.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine\Animations\AnimatedModel.h" />
     <ClInclude Include="Engine\Animations\ModelLoader.h" />
@@ -541,23 +554,10 @@
     <ClInclude Include="Engine\Render\Textrenderer.h" />
     <ClInclude Include="Engine\Shaders\ShaderTranspiler.h" />
     <ClInclude Include="Hud.h" />
-    <ClInclude Include="imconfig.h" />
-    <ClInclude Include="imgui.h" />
-    <ClInclude Include="imgui_impl_dx11.h" />
-    <ClInclude Include="imgui_impl_glfw.h" />
-    <ClInclude Include="imgui_impl_opengl3.h" />
-    <ClInclude Include="imgui_impl_opengl3_loader.h" />
-    <ClInclude Include="imgui_internal.h" />
-    <ClInclude Include="imstb_rectpack.h" />
-    <ClInclude Include="imstb_textedit.h" />
-    <ClInclude Include="imstb_truetype.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Mapeditor.h" />
-    <ClInclude Include="miniaudio.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="stb_truetype.h" />
     <ClInclude Include="Weaponmanager.h" />
   </ItemGroup>
   <ItemGroup>
