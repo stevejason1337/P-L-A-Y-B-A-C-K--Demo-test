@@ -1,7 +1,6 @@
-# ── Игровые ассеты (большие файлы — не хранить в git) ──
-models/
-sounds/
-maps/
+# ── Игровые ассеты ──
+# (Оставил папки открытыми, чтобы структура была видна на GitHub)
+# Если файлы внутри станут слишком тяжелыми, лучше использовать Git LFS
 *.fbx
 *.glb
 *.obj
@@ -14,23 +13,23 @@ maps/
 *.tga
 *.dds
 
-# ── Visual Studio build ──
+# ── Visual Studio build & Временные файлы ──
+# Убрал [Bb]in/ и [Oo]bj/, так как они могут пересекаться с вашими папками
 [Dd]ebug/
 [Rr]elease/
 x64/
 x86/
-[Bb]in/
-[Oo]bj/
 .vs/
+ipch/
 
 # ── Компилятор ──
+# Убрал *.lib, чтобы ваши зависимости в папке lib/ подгрузились
 *.exe
 *.ilk
 *.pdb
 *.ipdb
 *.iobj
 *.pch
-*.lib
 *.exp
 *.sbr
 *.tmp
@@ -45,4 +44,3 @@ x86/
 *.VC.VC.opendb
 *.opendb
 *.cachefile
-ipch/
