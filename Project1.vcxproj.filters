@@ -15,52 +15,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="glad.c">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="dependencies\include\glm\detail\glm.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="dependencies\include\glm\glm.cppm">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Editor main.cpp">
+    <ClCompile Include="dependencies\Glad\glad.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_draw.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_dx11.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_impl_dx11.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_glfw.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_impl_glfw.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_impl_opengl3.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_impl_opengl3.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_tables.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
+    <ClCompile Include="dependencies\Imgui\imgui_widgets.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Modelloader.cpp">
+    <ClCompile Include="Engine\Animations\Modelloader.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Soundmanager.cpp">
+    <ClCompile Include="Engine\Core\Soundmanager.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="Textrenderer.cpp">
+    <ClCompile Include="Engine\Render\Textrenderer.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderTranspiler.cpp">
+    <ClCompile Include="Engine\Shaders\ShaderTranspiler.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Editor\Editor main.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Main\main.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -944,133 +944,133 @@
     <ClInclude Include="dependencies\include\glm\vector_relational.hpp">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="stb_image.h">
+    <ClInclude Include="dependencies\Imgui\imconfig.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Settings.h">
+    <ClInclude Include="dependencies\Imgui\imgui.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Modelloader.h">
+    <ClInclude Include="dependencies\Imgui\imgui_impl_dx11.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="dependencies\Imgui\imgui_impl_glfw.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Renderer.h">
+    <ClInclude Include="dependencies\Imgui\imgui_impl_opengl3.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
+    <ClInclude Include="dependencies\Imgui\imgui_impl_opengl3_loader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="AnimatedModel.h">
+    <ClInclude Include="dependencies\Imgui\imgui_internal.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="AABB.h">
+    <ClInclude Include="dependencies\Imgui\imstb_rectpack.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Triangle.h">
+    <ClInclude Include="dependencies\Imgui\imstb_textedit.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Weaponmanager.h">
+    <ClInclude Include="dependencies\Imgui\imstb_truetype.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Textrenderer.h">
+    <ClInclude Include="dependencies\Miniaudio\miniaudio.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Console.h">
+    <ClInclude Include="dependencies\Stb\stb_image.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="dependencies\Stb\stb_truetype.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Mapeditor.h">
+    <ClInclude Include="Engine\Animations\AnimatedModel.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="miniaudio.h">
+    <ClInclude Include="Engine\Animations\ModelLoader.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="stb_truetype.h">
+    <ClInclude Include="Engine\Core\Settings.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Soundmanager.h">
+    <ClInclude Include="Engine\Core\Simdmath.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Hud.h">
+    <ClInclude Include="Engine\Core\Soundmanager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Threadpool.h">
+    <ClInclude Include="Engine\Core\Threadpool.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Physics.h">
+    <ClInclude Include="Engine\Physics\AABB.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Renderapi.h">
+    <ClInclude Include="Engine\Physics\BulletIntegration.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Renderapi gl.h">
+    <ClInclude Include="Engine\Physics\ImpactPhysics.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Renderapi dx11.h">
+    <ClInclude Include="Engine\Physics\Physics.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui.h">
+    <ClInclude Include="Engine\Physics\Triangle.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_dx11.h">
+    <ClInclude Include="Engine\Render\GPUSkinning.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_glfw.h">
+    <ClInclude Include="Engine\Render\Renderapi dx11.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3.h">
+    <ClInclude Include="Engine\Render\Renderapi gl.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_impl_opengl3_loader.h">
+    <ClInclude Include="Engine\Render\Renderapi.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imgui_internal.h">
+    <ClInclude Include="Engine\Render\Rendercommon.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_rectpack.h">
+    <ClInclude Include="Engine\Render\Renderdebug.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_textedit.h">
+    <ClInclude Include="Engine\Render\Renderer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imstb_truetype.h">
+    <ClInclude Include="Engine\Render\TAA.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="imconfig.h">
+    <ClInclude Include="Engine\Render\Textrenderer.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Rendercommon.h">
+    <ClInclude Include="Engine\Shaders\ShaderTranspiler.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Renderdebug.h">
+    <ClInclude Include="Game\Editor\Mapeditor.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="GPUSkinning.h">
+    <ClInclude Include="Game\Effects\BloodFX.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="Simdmath.h">
+    <ClInclude Include="Game\Entities\Enemy.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BloodFX.h">
+    <ClInclude Include="Game\Entities\Player.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ImpactPhysics.h">
+    <ClInclude Include="Game\Input\Input.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="BulletIntegration.h">
+    <ClInclude Include="Game\Ui\Console.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenu.h">
+    <ClInclude Include="Game\Ui\Hud.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="TAA.h">
+    <ClInclude Include="Game\Ui\MainMenu.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderTranspiler.h">
+    <ClInclude Include="Game\Weapons\Weaponmanager.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
