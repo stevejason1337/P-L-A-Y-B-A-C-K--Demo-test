@@ -6,7 +6,7 @@
 // ════════════════════════════════════════════════════════════
 
 // Engine headers
-#include "Engine/Settings.h"
+#include "Engine/Core/Settings.h"
 
 // Game headers
 #include "Game/Entities/Player.h"

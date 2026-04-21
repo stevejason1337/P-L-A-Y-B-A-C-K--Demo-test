@@ -24,7 +24,7 @@ using Microsoft::WRL::ComPtr;
 #include <cstdlib>
 #include <cmath>
 #include <algorithm>
-#include "Settings.h"
+#include "Engine/Core/Settings.h"
 
 // ───────────────────────────────────────────────────────────────
 //  Константы

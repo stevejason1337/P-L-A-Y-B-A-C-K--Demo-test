@@ -6,9 +6,9 @@
 #include <iostream>
 
 // Engine headers
-#include "Engine/ModelLoader.h"
-#include "Engine/AnimatedModel.h"
-#include "Engine/Settings.h"
+#include "Engine/Animations/ModelLoader.h"
+#include "Engine/Animations/AnimatedModel.h"
+#include "Engine/Core/Settings.h"
 
 struct WeaponDef
 {

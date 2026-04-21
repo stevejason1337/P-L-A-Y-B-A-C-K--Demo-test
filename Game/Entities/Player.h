@@ -9,8 +9,8 @@
 #include <cmath>
 
 // Engine headers (от корня проекта)
-#include "Engine/Settings.h"
-#include "Engine/AABB.h"
+#include "Engine/Core/Settings.h"
+#include "Engine/Physics/AABB.h"
 
 struct Character {
     glm::vec3 pos = glm::vec3(0.f, 20.f, 0.f);

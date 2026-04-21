@@ -1,15 +1,15 @@
 #pragma once
 
 // Engine headers (от корня проекта)
-#include "Engine/Settings.h"
-#include "Engine/ThreadPool.h"
-#include "Engine/Physics.h"
-#include "Engine/BulletIntegration.h"
-#include "Engine/BloodFX.h"
-#include "Engine/ImpactPhysics.h"
-#include "Engine/ModelLoader.h"
-#include "Engine/AnimatedModel.h"
-#include "Engine/AABB.h"
+#include "Engine/Core/Settings.h"
+#include "Engine/Core/Threadpool.h"
+#include "Engine/Physics/Physics.h"
+#include "Engine/Physics/BulletIntegration.h"
+#include "Game/Effects/BloodFX.h"
+#include "Engine/Physics/ImpactPhysics.h"
+#include "Engine/Animations/ModelLoader.h"
+#include "Engine/Animations/AnimatedModel.h"
+#include "Engine/Physics/AABB.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>

@@ -23,15 +23,15 @@
 #include <vector>
 
 // ── Engine ──────────────────────────────────────────────────
-#include "Engine/Settings.h"
-#include "Engine/ModelLoader.h"
-#include "Engine/AABB.h"
-#include "Engine/AnimatedModel.h"
-#include "Engine/Soundmanager.h"
-#include "Engine/ThreadPool.h"
-#include "Engine/Renderer.h"
-#include "Engine/BulletIntegration.h"
-#include "Engine/BloodFX.h"
+#include "Engine/Core/Settings.h"
+#include "Engine/Animations/ModelLoader.h"
+#include "Engine/Physics/AABB.h"
+#include "Engine/Animations/AnimatedModel.h"
+#include "Engine/Core/Soundmanager.h"
+#include "Engine/Core/Threadpool.h"
+#include "Engine/Render/Renderer.h"
+#include "Engine/Physics/BulletIntegration.h"
+#include "Game/Effects/BloodFX.h"
 
 // ── Game ────────────────────────────────────────────────────
 #include "Game/Entities/Player.h"
