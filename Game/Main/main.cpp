@@ -391,6 +391,33 @@ int main()
         enemyManager.update(dt, camPos, playerHP);
         bulletWorld.update(dt);
         bloodFX.update(dt);
+        // ── Передаём состояние Game в Renderer (один раз на кадр) ──
+        {
+            PlayerMovementState pms;
+            pms.velocityXZ = glm::length(glm::vec2(player.vel.x, player.vel.z));
+            pms.onGround = player.onGround;
+            pms.sprinting = player.sprinting;
+            renderer.setPlayerState(pms);
+
+            const WeaponDef& wd = weaponManager.activeDef();
+            WeaponRenderDef wrd;
+            wrd.posRight = wd.posRight;
+            wrd.posUp = wd.posUp;
+            wrd.posFwd = wd.posFwd;
+            wrd.rotX = wd.rotX;
+            wrd.rotY = wd.rotY;
+            wrd.scale = wd.scale;
+            wrd.animIdle = wd.animIdle;
+            wrd.animWalk = wd.animWalk;
+            wrd.animFire = wd.animFire;
+            wrd.animFire001 = wd.animFire001;
+            wrd.animFire002 = wd.animFire002;
+            wrd.animReloadFull = wd.animReloadFull;
+            wrd.animReloadEasy = wd.animReloadEasy;
+            wrd.maxAmmo = wd.maxAmmo;
+            renderer.setWeaponRenderDef(wrd);
+        }
+
         renderer.updateGunAnim(weaponManager.active(), dt);
 
         // -- Рендер ------------------------------------------

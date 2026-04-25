@@ -9,6 +9,8 @@
 #include "Engine/Animations/ModelLoader.h"
 #include "Engine/Animations/AnimatedModel.h"
 #include "Engine/Core/Settings.h"
+#include "Engine/Render/Renderer.h"
+extern Renderer renderer;
 
 struct WeaponDef
 {
@@ -154,6 +156,7 @@ struct WeaponManager
         gm.curAnim = "";
         if (!def.animIdle.empty() && gm.hasAnim(def.animIdle))
             gm.play(def.animIdle, true);
+        renderer.onWeaponSwitch();
         std::cout << "[WEAPON] Switched to #" << current << "\n";
     }
 
