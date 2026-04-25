@@ -23,22 +23,28 @@ struct Character {
 
 extern Character player;
 
+#ifndef GUN_STATE_DEFINED
+#define GUN_STATE_DEFINED
 struct GunState {
     int   ammo = 12;
     float shootCooldown = 0.f;
     float recoilOffset = 0.f;
     float recoilTimer = 0.f;
     bool  reloading = false;
-    bool  reloadFull = false;   // нужен Renderer.h
-    float bobTimer = 0.f;    // нужен Renderer.h
-    float adsProgress = 0.f;    // 0=бедро 1=прицел (ADS)
+    bool  reloadFull = false;
+    float bobTimer = 0.f;
+    float adsProgress = 0.f;
 };
+#endif
 
 extern GunState gun;
 extern float    flashTimer;
 extern int      fireAnimCounter;
 
+#ifndef BULLET_HOLE_DEFINED
+#define BULLET_HOLE_DEFINED
 struct BulletHole { glm::vec3 pos; float life; };
+#endif
 extern std::vector<BulletHole> bulletHoles;
 
 inline float playerHP = 100.f;

@@ -22,8 +22,8 @@
 
 #include "AnimatedModel.h"
 #include "ModelLoader.h"
-#include "Player.h"
-#include "WeaponManager.h"
+// Engine знает только интерфейсы — никаких прямых зависимостей от Game
+#include "../Interfaces/IPlayerRendererState.h"
 
 // ════════════════════════════════════════════════════════════
 //  GLSL ШЕЙДЕРЫ УДАЛЕНЫ — используем HLSL через ShaderTranspiler
@@ -351,6 +351,41 @@ static bool _dxInit(HWND hwnd) {
 // ════════════════════════════════════════════════════════════
 //  RENDERER
 // ════════════════════════════════════════════════════════════
+
+
+// ── Game state structs (Engine-side definitions) ─────────────
+// GunState и BulletHole не имеют зависимостей от Game —
+// только примитивные типы и glm. Определяем здесь чтобы
+// Engine/Renderer мог работать без включения Game-заголовков.
+// Player.h включает Renderer.h и получает эти определения.
+//
+// ВАЖНО: inline-глобалы (weaponManager, soundManager и т.д.)
+// НЕ определяются здесь — только в одном .cpp или через extern.
+#ifndef GUN_STATE_DEFINED
+#define GUN_STATE_DEFINED
+struct GunState {
+    int   ammo = 12;
+    float shootCooldown = 0.f;
+    float recoilOffset = 0.f;
+    float recoilTimer = 0.f;
+    bool  reloading = false;
+    bool  reloadFull = false;
+    float bobTimer = 0.f;
+    float adsProgress = 0.f;
+};
+#endif
+
+#ifndef BULLET_HOLE_DEFINED
+#define BULLET_HOLE_DEFINED
+struct BulletHole { glm::vec3 pos; float life = 0.f; };
+#endif
+
+// extern-объявления — определения живут в main.cpp / Player.cpp
+extern GunState                 gun;
+extern float                    flashTimer;
+extern int                      fireAnimCounter;
+extern std::vector<BulletHole>  bulletHoles;
+
 extern bool isADS;
 inline constexpr float ADS_SPEED = 8.f;
 
@@ -371,6 +406,13 @@ struct Renderer
     int   lastFireCounter = 0;
     bool  reloadStarted = false;
     float reloadTimer = 0.f, reloadDuration = 2.5f;
+    // PlayerMovementState и WeaponRenderDef — POD, заполняются из Game перед drawScene().
+    // gun, flashTimer, fireAnimCounter, bulletHoles — extern глобалы из Player.h.
+    PlayerMovementState _pms;
+    WeaponRenderDef     _wrd;
+
+    void setPlayerState(const PlayerMovementState& pms) { _pms = pms; }
+    void setWeaponRenderDef(const WeaponRenderDef& wrd) { _wrd = wrd; }
 
     // ── Wireframe — одинаково работает на обоих API ──────────
     // Вызывай когда wireframe флаг изменился
@@ -506,10 +548,10 @@ struct Renderer
 #endif
 
         glm::vec3 right = glm::normalize(glm::cross(cf, cu)), up2 = glm::normalize(glm::cross(right, cf));
-        bool mov = glm::length(glm::vec2(player.vel.x, player.vel.z)) > 0.5f;
+        bool mov = _pms.velocityXZ > 0.5f;
         float bobX = mov ? sinf(gun.bobTimer) * .003f : 0.f, bobY = mov ? cosf(gun.bobTimer * 2.f) * .002f : 0.f;
-        if (mov && player.onGround)gun.bobTimer += 0.016f * 6.f;
-        const WeaponDef& def = weaponManager.activeDef(); float adsP = gun.adsProgress;
+        if (mov && _pms.onGround)gun.bobTimer += 0.016f * 6.f;
+        const WeaponRenderDef& def = _wrd; float adsP = gun.adsProgress;
         glm::vec3 gPos = cam + right * (glm::mix(GUN_OFFSET_RIGHT + def.posRight, 0.f, adsP) + bobX * (1 - adsP))
             + up2 * (GUN_OFFSET_UP + def.posUp + bobY * (1 - adsP) + gun.recoilOffset) + cf * (GUN_OFFSET_FWD + def.posFwd);
         glm::mat4 gMat(1.f); gMat[0] = glm::vec4(right, 0.f); gMat[1] = glm::vec4(up2, 0.f); gMat[2] = glm::vec4(-cf, 0.f); gMat[3] = glm::vec4(gPos, 1.f);
@@ -561,14 +603,14 @@ struct Renderer
     // ── Weapon anim (одинаково для обоих API) ────────────────
     void updateGunAnim(AnimatedModel& gm, float dt)
     {
-        const WeaponDef& def = weaponManager.activeDef();
+        const WeaponRenderDef& def = _wrd;
         if (fireAnimCounter != lastFireCounter) { lastFireCounter = fireAnimCounter; int v = fireAnimCounter % 3; const std::string& fa = (v == 0) ? def.animFire : (v == 1) ? def.animFire001 : def.animFire002; if (!fa.empty() && gm.hasAnim(fa))gm.playOnce(fa, def.animIdle); }
         if (gun.reloading) {
             if (!reloadStarted) { reloadTimer = 0.f; const std::string& ra = gun.reloadFull ? def.animReloadFull : def.animReloadEasy; if (!ra.empty() && gm.hasAnim(ra))gm.playOnce(ra, def.animIdle); reloadStarted = true; }
             reloadTimer += dt; if (gm.isDone() || reloadTimer >= reloadDuration)_finishReload(gm, def.animIdle);
         }
         if (!gun.reloading) {
-            bool mov = glm::length(glm::vec2(player.vel.x, player.vel.z)) > 0.5f && player.onGround;
+            bool mov = _pms.velocityXZ > 0.5f && _pms.onGround;
             if (gm.curAnim == def.animIdle && mov && !def.animWalk.empty() && gm.hasAnim(def.animWalk))gm.play(def.animWalk, true);
             if (!def.animWalk.empty() && gm.curAnim == def.animWalk && !mov && gm.hasAnim(def.animIdle))gm.play(def.animIdle, true);
         }
@@ -788,7 +830,7 @@ struct Renderer
     }
 
 private:
-    void _finishReload(AnimatedModel& gm, const std::string& ia) { gun.ammo = weaponManager.activeDef().maxAmmo; gun.reloading = false; gun.shootCooldown = 0.f; reloadStarted = false; reloadTimer = 0.f; gm.animDone = false; gm.looping = true; gm.curAnim = ""; if (!ia.empty() && gm.hasAnim(ia))gm.play(ia, true); }
+    void _finishReload(AnimatedModel& gm, const std::string& ia) { gun.reloading = false; gun.shootCooldown = 0.f; reloadStarted = false; reloadTimer = 0.f; gm.animDone = false; gm.looping = true; gm.curAnim = ""; if (!ia.empty() && gm.hasAnim(ia))gm.play(ia, true); }
 
     // ════════════════════════════════════════════════════
     //  GL PRIVATE

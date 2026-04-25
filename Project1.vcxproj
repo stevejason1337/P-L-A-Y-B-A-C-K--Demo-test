@@ -214,7 +214,9 @@
     <ClCompile Include="Engine\Core\Soundmanager.cpp" />
     <ClCompile Include="Engine\Render\Textrenderer.cpp" />
     <ClCompile Include="Engine\Shaders\ShaderTranspiler.cpp" />
-    <ClCompile Include="Game\Editor\Editor main.cpp" />
+    <ClCompile Include="Game\Editor\Editor main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Game\Main\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -530,6 +532,8 @@
     <ClInclude Include="Engine\Core\Simdmath.h" />
     <ClInclude Include="Engine\Core\Soundmanager.h" />
     <ClInclude Include="Engine\Core\Threadpool.h" />
+    <ClInclude Include="Engine\Interfaces\IBloodFX.h" />
+    <ClInclude Include="Engine\Interfaces\IPlayerRendererState.h" />
     <ClInclude Include="Engine\Physics\AABB.h" />
     <ClInclude Include="Engine\Physics\BulletIntegration.h" />
     <ClInclude Include="Engine\Physics\ImpactPhysics.h" />

@@ -16,7 +16,7 @@
 #include <vector>
 #include <unordered_map>
 
-#include "BloodFX.h"
+#include "Engine/Interfaces/IBloodFX.h"
 #include "AABB.h"
 
 inline btVector3 glm2bt(const glm::vec3& v) { return { v.x, v.y, v.z }; }
@@ -204,7 +204,7 @@ struct BulletWorld {
 
         eb.ragdoll.active = true;
         eb.ragdoll.syncFromBullet();
-        bloodFX.spawnDeath(enemyPos, shootDir);
+        if (gBloodFX) gBloodFX->spawnDeath(enemyPos, shootDir);
     }
 
     void update(float dt) {

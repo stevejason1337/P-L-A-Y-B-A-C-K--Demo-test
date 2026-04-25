@@ -7,7 +7,7 @@
 //    • Ragdoll      — полноценный физический труп (мёртвый)
 //    • HitMarker    — экранный маркер (крест становится красным)
 //
-//  Зависит от: Physics.h, AABB.h, BloodFX.h
+//  Зависит от: Physics.h, AABB.h, Engine/Interfaces/IBloodFX.h
 //
 //  Использование:
 //    1. #include "ImpactPhysics.h" в Enemy.h
@@ -25,7 +25,7 @@
 #include <imgui.h>
 #include "Physics.h"    // Ragdoll, RagdollBone, getGroundY
 #include "AABB.h"       // bvh, wallCollide
-#include "BloodFX.h"
+#include "Engine/Interfaces/IBloodFX.h"
 
 // ───────────────────────────────────────────────────────────────
 //  HIT REACTION  — короткий толчок кости при попадании
@@ -323,7 +323,7 @@ inline void doShootFX(const glm::vec3& camPos,
             ? hitResult.normal
             : -camFront;
 
-        bloodFX.spawnHit(hitResult.hitPos, norm, camFront,
+        if (gBloodFX) gBloodFX->spawnHit(hitResult.hitPos, norm, camFront,
             hitResult.headshot ? 35 : 22);
 
         // HitMarker
@@ -331,7 +331,7 @@ inline void doShootFX(const glm::vec3& camPos,
 
         // Дополнительный брыздг при смерти
         if (hitResult.dead)
-            bloodFX.spawnDeath(hitResult.hitPos, camFront);
+            if (gBloodFX) gBloodFX->spawnDeath(hitResult.hitPos, camFront);
     }
     else {
         // Попадание в стену — маленький брызг (не кровь)

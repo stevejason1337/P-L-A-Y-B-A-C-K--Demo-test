@@ -4,7 +4,6 @@
 #include "miniaudio.h"
 
 #include "Soundmanager.h"
-#include "Player.h"    // для player.sprinting в playFootstep
 #include <iostream>
 
 // ── Definition of the global instance ────────────────────────
@@ -101,7 +100,7 @@ void SoundManager::playEmpty()
 }
 
 // ── playFootstep ──────────────────────────────────────────────
-void SoundManager::playFootstep(float dt, bool moving, bool onGround)
+void SoundManager::playFootstep(float dt, bool moving, bool onGround, bool sprinting)
 {
     if (!moving || !onGround) { stepTimer = 0.05f; return; }
     stepTimer -= dt;
@@ -111,6 +110,6 @@ void SoundManager::playFootstep(float dt, bool moving, bool onGround)
             stepVoice = (stepVoice + 1) % SND_STEP_VOICES;
             _play(stepSound[v]);
         }
-        stepTimer = player.sprinting ? 0.3f : 0.5f;
+        stepTimer = sprinting ? 0.3f : 0.5f;
     }
 }
